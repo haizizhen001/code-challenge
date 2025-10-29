@@ -1,0 +1,48 @@
+{
+  "name": "trading-pairs-api",
+  "version": "1.0.0",
+  "description": "Trading Pairs API - A RESTful API for managing cryptocurrency trading pairs with PostgreSQL and TypeORM",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "seed": "ts-node initDatabase/seed.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f api",
+    "docker:logs:postgres": "docker-compose logs -f postgres",
+    "docker:build": "docker-compose up -d --build",
+    "docker:restart": "docker-compose restart api",
+    "docker:clean": "docker-compose down -v",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "trading",
+    "crypto",
+    "api",
+    "rest",
+    "typeorm",
+    "postgresql",
+    "typescript",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.9.1",
+    "@types/pg": "^8.10.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
