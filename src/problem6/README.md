@@ -1,5 +1,5 @@
 # Live Scoreboard API - Technical Specification
-
+Link Figma: https://www.figma.com/board/uWBRTmGSSSDsaUyBjMzKJP/Untitled?node-id=0-1&t=uqlzcHe450wZIcyV-1
 ## Table of Contents
 1. [System Architecture](#system-architecture)
 2. [Authentication & Authorization](#authentication--authorization)
