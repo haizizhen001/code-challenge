@@ -1,12 +1,20 @@
 # Trading Pairs API - Problem 5
+## LIVE DEMO
+### Get List
+curl --location 'http://103.74.116.238:4050/api/trading-pairs'
+### Create Pair 
+curl --location 'http://103.74.116.238:4050/api/trading-pairs' \
+--header 'Content-Type: application/json' \
+--data '{
+  "label": "PEPE/USDT",
+  "base_currency": "PEPE",
+  "quote_currency": "USDT",
+  "price": 50000.00,
+  "volume_24h": 1000000.00,
+  "change_24h": 2.5
+}'
+
 ## Quick Start
-
-### Prerequisites
-
-- Node.js 18+
-- Docker & Docker Compose (recommended)
-- OR PostgreSQL 15+ installed locally
-
 ### Option 1: Docker (Recommended)
 
 ```bash
@@ -78,15 +86,6 @@ DB_SSL=false
 PORT=3001
 NODE_ENV=development
 ```
-
-**Note:**
-- `.env` file is gitignored for security
-- All scripts (`npm run dev`, `npm run seed`) automatically load `.env`
-- You can override `.env` values with system exports:
-  ```bash
-  export DB_HOST=myserver.com
-  npm run dev  # Will use myserver.com instead of .env value
-  ```
 
 ## API Documentation
 
@@ -256,138 +255,3 @@ Response (404 Not Found):
   "error": "Trading pair with ID {id} not found"
 }
 ```
-
-### Example Usage with cURL
-
-```bash
-# Create a new trading pair
-curl -X POST http://localhost:3001/api/trading-pairs \
-  -H "Content-Type: application/json" \
-  -d '{
-    "label": "ETH/USDT",
-    "base_currency": "ETH",
-    "quote_currency": "USDT",
-    "price": 3000.00
-  }'
-
-# Get all trading pairs
-curl http://localhost:3001/api/trading-pairs
-
-# Get specific trading pair
-curl http://localhost:3001/api/trading-pairs/{id}
-
-# Update trading pair
-curl -X PUT http://localhost:3001/api/trading-pairs/{id} \
-  -H "Content-Type: application/json" \
-  -d '{"price": 3100.00}'
-
-# Delete trading pair
-curl -X DELETE http://localhost:3001/api/trading-pairs/{id}
-```
-
-## Project Structure
-
-```
-src/problem5/
-├── config/
-│   └── database.ts          # Database configuration
-├── controllers/
-│   └── TradingPairController.ts  # HTTP request handlers
-├── dto/
-│   └── types.ts             # TypeScript interfaces & DTOs
-├── entities/
-│   └── TradingPair.ts       # TypeORM entity
-├── initDatabase/
-│   └── seed.ts              # Database seeding script
-├── services/
-│   └── TradingPairService.ts     # Business logic
-├── routes.ts                # API routes
-├── server.ts                # Application entry point
-├── Dockerfile               # Docker image configuration
-├── docker-compose.yml       # Docker services orchestration
-└── package.json             # Dependencies and scripts
-```
-
-## Architecture
-
-- **Controller-Service Pattern**: Separation of HTTP handling and business logic
-- **TypeORM**: Type-safe database operations with decorators
-- **DTOs**: Validated data transfer objects
-- **Repository Pattern**: Database abstraction layer
-
-## Error Handling
-
-All endpoints return consistent error responses:
-
-```json
-{
-  "success": false,
-  "error": "Error message description"
-}
-```
-
-HTTP Status Codes:
-- `200` - Success
-- `201` - Created
-- `400` - Bad Request (validation errors)
-- `404` - Not Found
-- `409` - Conflict (duplicate entries)
-- `500` - Internal Server Error
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Run in development mode (with hot reload)
-npm run dev
-
-# Build for production
-npm run build
-
-# Run production build
-npm start
-
-# Seed database
-npm run seed:problem5
-```
-
-## Testing
-
-```bash
-# Run tests (not implemented yet)
-npm test
-```
-
-## Docker Commands
-
-```bash
-# Build and start containers
-docker-compose up --build
-
-# Start in detached mode
-docker-compose up -d
-
-# View logs
-docker-compose logs -f api
-
-# Stop containers
-docker-compose down
-
-# Remove volumes (cleans database)
-docker-compose down -v
-
-# Rebuild API container
-docker-compose up -d --build api
-```
-
-## Technologies Used
-
-- **Node.js** - Runtime environment
-- **Express** - Web framework
-- **TypeScript** - Type safety
-- **TypeORM** - ORM for database operations
-- **PostgreSQL** - Relational database
-- **Docker** - Containerization
-- **CORS** - Cross-origin resource sharing
