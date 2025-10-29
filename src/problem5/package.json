@@ -4,10 +4,10 @@
   "description": "Trading Pairs API - A RESTful API for managing cryptocurrency trading pairs with PostgreSQL and TypeORM",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "ts-node server.ts",
+    "dev": "ts-node -r dotenv/config server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "seed": "ts-node initDatabase/seed.ts",
+    "start": "node -r dotenv/config dist/server.js",
+    "seed": "ts-node -r dotenv/config initDatabase/seed.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
@@ -32,6 +32,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",

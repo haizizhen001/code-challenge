@@ -13,6 +13,7 @@ class DatabaseConfig {
   private dataSource: DataSource;
 
   private constructor() {
+
     const config: DataSourceOptions = {
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
@@ -25,6 +26,16 @@ class DatabaseConfig {
       logging: process.env.NODE_ENV === 'development',
       ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     };
+
+    // Log configuration source for debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔧 Database Configuration:');
+      console.log(`   Source: ${process.env.DB_HOST ? 'Environment variable' : 'Default value'}`);
+      console.log(`   Host: ${config.host}`);
+      console.log(`   Port: ${(config as any).port}`);
+      console.log(`   Database: ${config.database}`);
+      console.log(`   SSL: ${config.ssl ? 'enabled' : 'disabled'}`);
+    }
 
     this.dataSource = new DataSource(config);
   }

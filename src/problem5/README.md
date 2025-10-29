@@ -20,7 +20,7 @@ docker-compose up -d
 docker-compose logs -f api
 
 # Seed database (optional)
-npm run seed:problem5
+npm run seed
 
 # Stop services
 docker-compose down
@@ -41,7 +41,7 @@ docker-compose up -d postgres
 npm install
 
 # Seed database (optional)
-npm run seed:problem5
+npm run seed
 
 # Start dev server
 npm run dev
@@ -49,18 +49,44 @@ npm run dev
 
 ### Environment Variables
 
+The application automatically loads environment variables in this priority order:
+1. **`.env` file** (create from `.env.example`)
+2. **System environment variables** (export commands)
+3. **Default values** (hardcoded fallbacks)
+
 Create a `.env` file based on `.env.example`:
 
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit with your values
+nano .env
+```
+
+**`.env` file contents:**
 ```env
-NODE_ENV=development
-PORT=3001
+# Database Configuration
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=postgres
 DB_NAME=trading_pairs_db
 DB_SSL=false
+
+# Server Configuration
+PORT=3001
+NODE_ENV=development
 ```
+
+**Note:**
+- `.env` file is gitignored for security
+- All scripts (`npm run dev`, `npm run seed`) automatically load `.env`
+- You can override `.env` values with system exports:
+  ```bash
+  export DB_HOST=myserver.com
+  npm run dev  # Will use myserver.com instead of .env value
+  ```
 
 ## API Documentation
 
